@@ -19,6 +19,14 @@ addons:
       - python3-dev
       - g++-6
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get update -qq ; fi
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install -qq g++-5 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90 ; fi
+
 before_script: |
     # `ya` provides it's own compiler toolchains, `CC` and CXX` environment variables will override
     # them so we have to unset them.
